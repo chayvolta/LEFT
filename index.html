@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Geoportal con Leaflet y GeoPackage</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css" integrity="sha512-hoalv4uix/7308h8U32W+x56oU670sMhPYF+Kjj6+s0E6S5tD3i9s3Uq4562+7s8k793858y977226c" crossorigin="">
+  <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js" integrity="sha512-7y6c6t210C80m4s1iH621i08z17aQ6s1873s8b5cwtB46f7b1488a3704487519434237583" crossorigin=""></script>
+  <script src="https://unpkg.com/leaflet-geopackage@1.5.1/dist/leaflet-geopackage.min.js"></script>
+</head>
+<body>
+  <div id="mapid"></div>
+  <script>
+    // Definir el mapa
+    var map = L.map('mapid', {
+      center: [40.416775, -3.703790],
+      zoom: 10
+    });
+
+    // Añadir capas GeoPackage
+    var capas = {
+      "municipios": {
+        "url": "ruta/al/archivo.gpkg",
+        "layer": "municipios",
+        "estilo": {
+          "color": "#ff0000",
+          "weight": 2,
+          "opacity": 1
+        }
+      },
+      "parques": {
+        "url": "ruta/al/archivo.gpkg",
+        "layer": "parques",
+        "estilo": {
+          "fillColor": "#00ff00",
+          "color": "#000000",
+          "weight": 1,
+          "opacity": 0.5
+        }
+      }
+    };
+
+    for (var nombreCapa in capas) {
+      var capa = capas[nombreCapa];
+      L.geoPackage(capa.url, {
+        layer: capa.layer
+      }).addTo(map).setStyle(capa.estilo);
+    }
+
+    // Control de capas
+    var controlCapas = L.control.layers(null, capas, {collapsed: false});
+    controlCapas.addTo(map);
+  </script>
+</body>
+</html>
