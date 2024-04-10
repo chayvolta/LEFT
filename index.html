@@ -19,8 +19,8 @@
 
     // Añadir capas GeoPackage
     var capas = {
-      "municipios": {
-        "url": "ruta/al/archivo.gpkg",
+      "Lotes": {
+        "url": "https://drive.google.com/file/d/1PBku1IzYxVlaIv674l0wqqT8OjWjrJ-I/view?usp=sharing",
         "layer": "municipios",
         "estilo": {
           "color": "#ff0000",
@@ -29,7 +29,7 @@
         }
       },
       "parques": {
-        "url": "ruta/al/archivo.gpkg",
+        "url": "https://drive.google.com/file/d/1PBku1IzYxVlaIv674l0wqqT8OjWjrJ-I/view?usp=sharing",
         "layer": "parques",
         "estilo": {
           "fillColor": "#00ff00",
@@ -41,7 +41,7 @@
     };
 
     for (var nombreCapa in capas) {
-      var capa = capas[nombreCapa];
+      var capa = capas[Lotes];
       L.geoPackage(capa.url, {
         layer: capa.layer
       }).addTo(map).setStyle(capa.estilo);
